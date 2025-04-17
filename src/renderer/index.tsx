@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { A2AProvider } from '@/components/a2a-provider';
 import { AppProvider, AppLayout } from '@/components/app-provider';
 import Dashboard from '@/screens/Dashboard';
 import InsuranceVerification from '@/screens/InsuranceVerification';
@@ -53,8 +54,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <AppProvider>
-      <RouterProvider router={router} />
-    </AppProvider>
+    <A2AProvider>
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
+    </A2AProvider>
   </React.StrictMode>,
 );

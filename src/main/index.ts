@@ -36,15 +36,14 @@ if (!app.requestSingleInstanceLock()) {
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
-// Here, you can also use other preload
-const preload = join(__dirname, '../preload/index.js')
+const preload = join(__dirname, 'preload.js') // Correct path relative to main.js in .vite/build/
 const url = process.env.VITE_DEV_SERVER_URL
-const indexHtml = join(process.env.DIST, 'index.html')
+const indexHtml = join(process.env.DIST || '', 'index.html') // Add fallback for DIST
 
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Chasm Dental Billing Platform',
-    icon: join(process.env.PUBLIC, 'favicon.ico'),
+    icon: join(process.env.PUBLIC || '', 'favicon.ico'), // Add fallback for PUBLIC
     width: 1280,
     height: 800,
     minWidth: 1024,
@@ -59,11 +58,11 @@ async function createWindow() {
   })
 
   if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
-    win.loadURL(url)
+    win.loadURL(url!) // Add non-null assertion for url
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
   } else {
-    win.loadFile(indexHtml)
+    win.loadFile(indexHtml) // indexHtml is now guaranteed to be string
   }
 
   // Test actively push message to the Electron-Renderer
