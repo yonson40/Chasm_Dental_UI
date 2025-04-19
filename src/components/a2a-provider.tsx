@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Notification } from './ui/event-notification';
+import { Notification, EventNotificationCenter } from '@/components/event-notification';
 
 // Define message types for A2A communication
 export type AgentCapability = 
@@ -658,7 +658,6 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            {/* Other routes */}
           </Routes>
         </Router>
       </AppProvider>

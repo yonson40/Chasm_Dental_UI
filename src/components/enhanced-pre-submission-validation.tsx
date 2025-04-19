@@ -3,6 +3,13 @@ import { useA2A } from '@/components/a2a-provider';
 import { Card } from '@/components/ui/card';
 import { CheckCircle, AlertCircle, Clock, FileCheck, X, ChevronDown, ChevronUp, Search, Download } from 'lucide-react';
 
+// Define type for required documents
+type RequiredDocument = {
+  type: string;
+  status: 'missing' | 'found' | 'retrieved' | 'not_required';
+  source?: string;
+};
+
 interface EnhancedPreSubmissionValidationProps {
   claimId: string;
   patientName: string;
@@ -39,11 +46,7 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
         resolved: boolean;
       }>;
     }>;
-    requiredDocuments: Array<{
-      type: string;
-      status: 'missing' | 'found' | 'retrieved' | 'not_required';
-      source?: string;
-    }>;
+    requiredDocuments: Array<RequiredDocument>;
   } | null>(null);
   
   const [expandedSections, setExpandedSections] = useState<{
@@ -204,27 +207,27 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
   
   // Get color based on score
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-600 dark:text-green-400';
-    if (score >= 70) return 'text-amber-600 dark:text-amber-400';
-    return 'text-red-600 dark:text-red-400';
+    if (score >= 90) return 'text-green-600';
+    if (score >= 70) return 'text-amber-600';
+    return 'text-red-600';
   };
   
   // Get background color based on score
   const getScoreBgColor = (score: number) => {
-    if (score >= 90) return 'bg-green-100 dark:bg-green-900/30';
-    if (score >= 70) return 'bg-amber-100 dark:bg-amber-900/30';
-    return 'bg-red-100 dark:bg-red-900/30';
+    if (score >= 90) return 'bg-green-100';
+    if (score >= 70) return 'bg-amber-100';
+    return 'bg-red-100';
   };
   
   return (
-    <Card className={`bg-white dark:bg-forestDark shadow-sm overflow-hidden ${className}`}>
-      <div className="p-4 border-b border-forestLight-dark/20 dark:border-forestDark-light/20">
+    <Card className={`bg-white shadow-sm overflow-hidden ${className}`}>
+      <div className="p-4 border-b border-taupe/20">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-forestDark dark:text-beige">Pre-submission Validation</h3>
+          <h3 className="text-lg font-semibold text-forestDark">Pre-submission Validation</h3>
           {validationStatus === 'validated' && (
             <button 
               onClick={resetValidation}
-              className="text-xs text-forestGreen hover:text-forestGreen-dark dark:text-forestGreen-light dark:hover:text-forestGreen"
+              className="text-xs text-forestGreen hover:text-forestGreen-dark"
             >
               Validate Again
             </button>
@@ -237,8 +240,8 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
         <div className="mb-4">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-forestDark dark:text-beige">{patientName}</h4>
-              <p className="text-xs text-forestDark-light dark:text-beige/70">Claim ID: {claimId}</p>
+              <h4 className="text-sm font-medium text-forestDark">{patientName}</h4>
+              <p className="text-xs text-forestDark-light">Claim ID: {claimId}</p>
             </div>
             
             {validationStatus === 'validated' && validationResults && (
@@ -254,7 +257,7 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
         {/* Validation Status */}
         {validationStatus === 'idle' && (
           <div className="text-center py-6">
-            <p className="text-sm text-forestDark-light dark:text-beige/70 mb-4">
+            <p className="text-sm text-forestDark-light mb-4">
               Click below to automatically validate this claim before submission
             </p>
             <button
@@ -263,7 +266,7 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
             >
               Validate Claim
             </button>
-            <p className="text-xs text-forestDark-light dark:text-beige/70 mt-4">
+            <p className="text-xs text-forestDark-light mt-4">
               <Clock className="h-3 w-3 inline mr-1" />
               Saves approximately 45 minutes compared to manual validation
             </p>
@@ -273,9 +276,9 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
         {validationStatus === 'validating' && (
           <div className="text-center py-6">
             <div className="animate-pulse flex flex-col items-center">
-              <FileCheck className="h-8 w-8 text-forestGreen dark:text-forestGreen-light mb-3" />
-              <p className="text-sm text-forestDark dark:text-beige">Validating claim...</p>
-              <p className="text-xs text-forestDark-light dark:text-beige/70 mt-2">
+              <FileCheck className="h-8 w-8 text-forestGreen mb-3" />
+              <p className="text-sm text-forestDark">Validating claim...</p>
+              <p className="text-xs text-forestDark-light mt-2">
                 Checking procedure codes, documentation, and insurance requirements
               </p>
             </div>
@@ -285,42 +288,42 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
         {validationStatus === 'validated' && validationResults && (
           <div>
             {/* Validation Summary */}
-            <div className="mb-4 p-4 bg-forestLight/50 dark:bg-forestDark-light/30 rounded-md">
+            <div className="mb-4 p-4 bg-forestLight/50 rounded-md">
               <div className="grid grid-cols-5 gap-2 text-center">
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Procedures</p>
-                  <p className="text-lg font-medium text-forestDark dark:text-beige">
+                  <p className="text-xs text-forestDark-light">Procedures</p>
+                  <p className="text-lg font-medium text-forestDark">
                     {validationResults.procedureCount}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Critical Issues</p>
+                  <p className="text-xs text-forestDark-light">Critical Issues</p>
                   <p className={`text-lg font-medium ${
                     validationResults.criticalIssues > 0 
-                      ? 'text-red-600 dark:text-red-400' 
-                      : 'text-forestDark dark:text-beige'
+                      ? 'text-red-600' 
+                      : 'text-forestDark'
                   }`}>
                     {validationResults.criticalIssues}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Warnings</p>
+                  <p className="text-xs text-forestDark-light">Warnings</p>
                   <p className={`text-lg font-medium ${
                     validationResults.warnings > 0 
-                      ? 'text-amber-600 dark:text-amber-400' 
-                      : 'text-forestDark dark:text-beige'
+                      ? 'text-amber-600' 
+                      : 'text-forestDark'
                   }`}>
                     {validationResults.warnings}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Recommendations</p>
-                  <p className="text-lg font-medium text-forestDark dark:text-beige">
+                  <p className="text-xs text-forestDark-light">Recommendations</p>
+                  <p className="text-lg font-medium text-forestDark">
                     {validationResults.recommendations}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Overall Score</p>
+                  <p className="text-xs text-forestDark-light">Overall Score</p>
                   <p className={`text-lg font-medium ${getScoreColor(validationResults.overallScore)}`}>
                     {validationResults.overallScore}%
                   </p>
@@ -332,7 +335,7 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
             <div className="mb-3">
               <button
                 onClick={() => toggleSection('issues')}
-                className="w-full flex items-center justify-between p-2 bg-forestLight/50 dark:bg-forestDark-light/30 rounded-md text-sm font-medium text-forestDark dark:text-beige hover:bg-forestLight dark:hover:bg-forestDark-light"
+                className="w-full flex items-center justify-between p-2 bg-forestLight/50 rounded-md text-sm font-medium text-forestDark hover:bg-forestLight"
               >
                 <span>Issues & Warnings</span>
                 {expandedSections.issues ? (
@@ -348,44 +351,44 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
                     procedure.issues.map((issue, issueIndex) => (
                       <div 
                         key={`${procIndex}-${issueIndex}`}
-                        className={`p-3 rounded-md ${
+                        className={`p-3 rounded-md border ${
                           issue.type === 'critical' 
-                            ? 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900/50' 
+                            ? 'bg-red-50 border-red-200' 
                             : issue.type === 'warning'
-                            ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-900/50'
-                            : 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-900/50'
+                            ? 'bg-amber-50 border-amber-200'
+                            : 'bg-blue-50 border-blue-200'
                         } ${issue.resolved ? 'opacity-50' : ''}`}
                       >
                         <div className="flex items-start">
                           {issue.type === 'critical' && !issue.resolved && (
-                            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 mr-3 flex-shrink-0" />
+                            <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 mr-3 flex-shrink-0" />
                           )}
                           {issue.type === 'warning' && !issue.resolved && (
-                            <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5 mr-3 flex-shrink-0" />
+                            <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5 mr-3 flex-shrink-0" />
                           )}
                           {issue.type === 'recommendation' && !issue.resolved && (
-                            <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-3 flex-shrink-0" />
+                            <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
                           )}
                           {issue.resolved && (
-                            <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" />
+                            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 mr-3 flex-shrink-0" />
                           )}
                           
                           <div className="flex-grow">
                             <div className="flex items-start justify-between">
                               <div>
-                                <p className="text-sm font-medium text-forestDark dark:text-beige">
+                                <p className="text-sm font-medium text-forestDark">
                                   {procedure.code} - {procedure.description}
                                 </p>
-                                <p className="text-xs text-forestDark-light dark:text-beige/70 mt-1">
+                                <p className="text-xs text-forestDark-light mt-1">
                                   {issue.message}
                                 </p>
                               </div>
                               <div className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                                 issue.type === 'critical' 
-                                  ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' 
+                                  ? 'bg-red-100 text-red-800' 
                                   : issue.type === 'warning'
-                                  ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
-                                  : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                                  ? 'bg-amber-100 text-amber-800'
+                                  : 'bg-blue-100 text-blue-800'
                               }`}>
                                 {issue.type === 'critical' ? 'Critical' : 
                                  issue.type === 'warning' ? 'Warning' : 'Recommendation'}
@@ -408,10 +411,10 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
                   )}
                   
                   {validationResults.procedures.every(p => p.issues.every(i => i.resolved)) && (
-                    <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-900/50 rounded-md">
+                    <div className="p-3 bg-green-50 border border-green-200 rounded-md">
                       <div className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mr-3" />
-                        <p className="text-sm text-forestDark dark:text-beige">All issues resolved</p>
+                        <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                        <p className="text-sm text-forestDark">All issues resolved</p>
                       </div>
                     </div>
                   )}
@@ -423,7 +426,7 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
             <div className="mb-3">
               <button
                 onClick={() => toggleSection('documents')}
-                className="w-full flex items-center justify-between p-2 bg-forestLight/50 dark:bg-forestDark-light/30 rounded-md text-sm font-medium text-forestDark dark:text-beige hover:bg-forestLight dark:hover:bg-forestDark-light"
+                className="w-full flex items-center justify-between p-2 bg-forestLight/50 rounded-md text-sm font-medium text-forestDark hover:bg-forestLight"
               >
                 <span>Required Documentation</span>
                 {expandedSections.documents ? (
@@ -435,42 +438,42 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
               
               {expandedSections.documents && (
                 <div className="mt-2 space-y-2">
-                  {validationResults.requiredDocuments.map((doc, index) => (
+                  {validationResults.requiredDocuments.map((doc: RequiredDocument, index) => (
                     <div 
                       key={index}
-                      className="flex items-center justify-between p-2 border-b border-forestLight-dark/10 dark:border-forestDark-light/10 last:border-0"
+                      className="flex items-center justify-between p-2 border-b border-taupe/10 last:border-0"
                     >
                       <div className="flex items-center">
                         {doc.status === 'missing' && (
-                          <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400 mr-2" />
+                          <AlertCircle className="h-4 w-4 text-red-600 mr-2" />
                         )}
                         {doc.status === 'found' && (
-                          <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400 mr-2" />
+                          <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
                         )}
                         {doc.status === 'retrieved' && (
-                          <CheckCircle className="h-4 w-4 text-blue-600 dark:text-blue-400 mr-2" />
+                          <CheckCircle className="h-4 w-4 text-blue-600 mr-2" />
                         )}
                         {doc.status === 'not_required' && (
-                          <CheckCircle className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
+                          <CheckCircle className="h-4 w-4 text-gray-400 mr-2" />
                         )}
-                        <span className="text-sm text-forestDark dark:text-beige">{doc.type}</span>
+                        <span className="text-sm text-forestDark">{doc.type}</span>
                       </div>
                       
                       <div className="flex items-center">
                         {doc.source && (
-                          <span className="text-xs text-forestDark-light dark:text-beige/70 mr-2">
+                          <span className="text-xs text-forestDark-light mr-2">
                             {doc.source}
                           </span>
                         )}
                         
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
                           doc.status === 'missing' 
-                            ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' 
+                            ? 'bg-red-100 text-red-800' 
                             : doc.status === 'found'
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                            ? 'bg-green-100 text-green-800'
                             : doc.status === 'retrieved'
-                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
-                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-gray-100 text-gray-800'
                         }`}>
                           {doc.status === 'missing' ? 'Missing' : 
                            doc.status === 'found' ? 'Found' : 
@@ -487,7 +490,7 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
             <div className="mb-4">
               <button
                 onClick={() => toggleSection('procedures')}
-                className="w-full flex items-center justify-between p-2 bg-forestLight/50 dark:bg-forestDark-light/30 rounded-md text-sm font-medium text-forestDark dark:text-beige hover:bg-forestLight dark:hover:bg-forestDark-light"
+                className="w-full flex items-center justify-between p-2 bg-forestLight/50 rounded-md text-sm font-medium text-forestDark hover:bg-forestLight"
               >
                 <span>Procedure Validation</span>
                 {expandedSections.procedures ? (
@@ -502,13 +505,13 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
                   {validationResults.procedures.map((procedure, index) => (
                     <div 
                       key={index}
-                      className="flex items-center justify-between p-2 border-b border-forestLight-dark/10 dark:border-forestDark-light/10 last:border-0"
+                      className="flex items-center justify-between p-2 border-b border-taupe/10 last:border-0"
                     >
                       <div>
-                        <p className="text-sm font-medium text-forestDark dark:text-beige">
+                        <p className="text-sm font-medium text-forestDark">
                           {procedure.code}
                         </p>
-                        <p className="text-xs text-forestDark-light dark:text-beige/70">
+                        <p className="text-xs text-forestDark-light">
                           {procedure.description}
                         </p>
                       </div>
@@ -534,13 +537,13 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
               >
                 Submit Claim
               </button>
-              <button className="flex-1 px-4 py-2 bg-gray-200 text-forestDark rounded-md hover:bg-gray-300 dark:bg-forestDark-light dark:text-beige dark:hover:bg-forestDark-lighter">
+              <button className="flex-1 px-4 py-2 bg-gray-200 text-forestDark rounded-md hover:bg-gray-300">
                 Save Draft
               </button>
             </div>
             
             <div className="mt-4 text-center">
-              <p className="text-xs text-forestDark-light dark:text-beige/70">
+              <p className="text-xs text-forestDark-light">
                 <Clock className="h-3 w-3 inline mr-1" />
                 Saved 45 minutes compared to manual validation
               </p>
@@ -551,11 +554,11 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
         {validationStatus === 'failed' && (
           <div className="text-center py-6">
             <div className="flex flex-col items-center">
-              <div className="p-3 rounded-full bg-red-100 dark:bg-red-900/30 mb-3">
-                <X className="h-6 w-6 text-red-600 dark:text-red-400" />
+              <div className="p-3 rounded-full bg-red-100 mb-3">
+                <X className="h-6 w-6 text-red-600" />
               </div>
-              <p className="text-sm text-forestDark dark:text-beige">Validation failed</p>
-              <p className="text-xs text-forestDark-light dark:text-beige/70 mt-2 mb-4">
+              <p className="text-sm text-forestDark">Validation failed</p>
+              <p className="text-xs text-forestDark-light mt-2 mb-4">
                 Unable to automatically validate claim. Please try again or validate manually.
               </p>
               <div className="flex space-x-3">
@@ -565,7 +568,7 @@ export const EnhancedPreSubmissionValidation: React.FC<EnhancedPreSubmissionVali
                 >
                   Try Again
                 </button>
-                <button className="px-3 py-1.5 bg-gray-200 text-forestDark text-sm rounded-md hover:bg-gray-300 dark:bg-forestDark-light dark:text-beige dark:hover:bg-forestDark-lighter">
+                <button className="px-3 py-1.5 bg-gray-200 text-forestDark text-sm rounded-md hover:bg-gray-300">
                   Validate Manually
                 </button>
               </div>

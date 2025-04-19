@@ -17,22 +17,22 @@ export default function NetworkStatusVisualizer() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blueBlack dark:text-beige">Network Status Visualizer</h1>
+        <h1 className="text-3xl font-bold text-forestDark">Network Status Visualizer</h1>
       </div>
 
       {/* Patient Summary */}
-      <div className="bg-lightBeige dark:bg-forestDark rounded-lg p-4 flex items-center">
+      <div className="bg-white rounded-lg p-4 flex items-center border border-taupe/20">
         <div className="w-12 h-12 rounded-full bg-forestGreen text-white flex items-center justify-center font-bold text-lg mr-4">
           JS
         </div>
         <div className="flex-1">
-          <h2 className="font-semibold text-lg">John Smith</h2>
-          <p className="text-sm text-muted-foreground">DOB: 05/15/1980 | ID: P12345 | Insurance: Delta Dental PPO</p>
+          <h2 className="font-semibold text-lg text-forestDark">John Smith</h2>
+          <p className="text-sm text-forestDark-light">DOB: 05/15/1980 | ID: P12345 | Insurance: Delta Dental PPO</p>
         </div>
         <Button variant="outline" size="sm">View Patient</Button>
       </div>
 
-      <Card>
+      <Card className="bg-white">
         <CardHeader>
           <CardTitle>Provider Network Status</CardTitle>
           <CardDescription>
@@ -59,13 +59,13 @@ export default function NetworkStatusVisualizer() {
           <div className="flex items-center justify-center mb-8">
             <div className="w-64 h-64 relative">
               {/* Outer circle - All Providers */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-forestLight"></div>
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-taupe/20"></div>
               
               {/* Middle circle - Delta Dental Network */}
-              <div className="absolute inset-4 rounded-full border-2 border-forestGreen bg-lightBeige bg-opacity-50"></div>
+              <div className="absolute inset-4 rounded-full border-2 border-forestGreen bg-forestLight/50"></div>
               
               {/* Inner circle - PPO Network */}
-              <div className="absolute inset-12 rounded-full border-2 border-forestGreen bg-forestGreen bg-opacity-20"></div>
+              <div className="absolute inset-12 rounded-full border-2 border-forestGreen bg-forestGreen/20"></div>
               
               {/* Center - Current Provider */}
               <div className="absolute inset-20 rounded-full bg-forestGreen flex items-center justify-center text-white font-bold">
@@ -73,7 +73,7 @@ export default function NetworkStatusVisualizer() {
               </div>
               
               {/* Labels */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-6 text-xs font-medium text-muted-foreground">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-6 text-xs font-medium text-forestDark-light">
                 All Providers
               </div>
               <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-6 text-xs font-medium text-forestGreen">
@@ -94,22 +94,22 @@ export default function NetworkStatusVisualizer() {
             
             <TabsContent value="coverage">
               <div className="space-y-4">
-                <div className="flex items-center p-3 bg-lightBeige dark:bg-forestDark rounded-lg">
+                <div className="flex items-center p-3 bg-forestLight/50 rounded-lg">
                   <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                     <CheckCircle className="h-5 w-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="font-medium">In-Network Provider</p>
-                    <p className="text-sm text-muted-foreground">Dr. Jane Doe is a participating provider with Delta Dental PPO</p>
+                    <p className="font-medium text-forestDark">In-Network Provider</p>
+                    <p className="text-sm text-forestDark-light">Dr. Jane Doe is a participating provider with Delta Dental PPO</p>
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex border-b border-forestLight pb-2">
+                <div className="space-y-3 text-forestDark">
+                  <div className="flex border-b border-taupe/10 pb-2">
                     <span className="w-1/3 font-medium">Provider NPI</span>
                     <span className="w-2/3">1234567890</span>
                   </div>
-                  <div className="flex border-b border-forestLight pb-2">
+                  <div className="flex border-b border-taupe/10 pb-2">
                     <span className="w-1/3 font-medium">Network Status</span>
                     <span className="w-2/3">
                       <Badge className="bg-green-100 text-green-800 border-green-200">
@@ -117,11 +117,11 @@ export default function NetworkStatusVisualizer() {
                       </Badge>
                     </span>
                   </div>
-                  <div className="flex border-b border-forestLight pb-2">
+                  <div className="flex border-b border-taupe/10 pb-2">
                     <span className="w-1/3 font-medium">Contract Effective</span>
                     <span className="w-2/3">01/01/2023</span>
                   </div>
-                  <div className="flex border-b border-forestLight pb-2">
+                  <div className="flex border-b border-taupe/10 pb-2">
                     <span className="w-1/3 font-medium">Contract Renewal</span>
                     <span className="w-2/3">12/31/2025</span>
                   </div>
@@ -140,20 +140,20 @@ export default function NetworkStatusVisualizer() {
                     <Info className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium">Current Provider is In-Network</p>
-                    <p className="text-sm text-muted-foreground">Alternative providers are only needed if current provider is out-of-network</p>
+                    <p className="font-medium text-blue-800">Current Provider is In-Network</p>
+                    <p className="text-sm text-blue-700">Alternative providers are only needed if current provider is out-of-network</p>
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
+                <div className="border rounded-lg p-4 border-taupe/20">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                         <CheckCircle className="h-5 w-5 text-green-600" />
                       </div>
                       <div>
-                        <h3 className="font-medium">Dr. Sarah Johnson</h3>
-                        <p className="text-sm text-muted-foreground">
+                        <h3 className="font-medium text-forestDark">Dr. Sarah Johnson</h3>
+                        <p className="text-sm text-forestDark-light">
                           0.8 miles away | Delta Dental PPO
                         </p>
                       </div>
@@ -162,15 +162,15 @@ export default function NetworkStatusVisualizer() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
+                <div className="border rounded-lg p-4 border-taupe/20">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                         <CheckCircle className="h-5 w-5 text-green-600" />
                       </div>
                       <div>
-                        <h3 className="font-medium">Dr. Michael Chen</h3>
-                        <p className="text-sm text-muted-foreground">
+                        <h3 className="font-medium text-forestDark">Dr. Michael Chen</h3>
+                        <p className="text-sm text-forestDark-light">
                           1.2 miles away | Delta Dental PPO
                         </p>
                       </div>
@@ -179,15 +179,15 @@ export default function NetworkStatusVisualizer() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
+                <div className="border rounded-lg p-4 border-taupe/20">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                         <CheckCircle className="h-5 w-5 text-green-600" />
                       </div>
                       <div>
-                        <h3 className="font-medium">Dr. Emily Rodriguez</h3>
-                        <p className="text-sm text-muted-foreground">
+                        <h3 className="font-medium text-forestDark">Dr. Emily Rodriguez</h3>
+                        <p className="text-sm text-forestDark-light">
                           2.5 miles away | Delta Dental PPO
                         </p>
                       </div>
@@ -200,30 +200,30 @@ export default function NetworkStatusVisualizer() {
             
             <TabsContent value="benefits">
               <div className="space-y-4">
-                <div className="flex items-center p-3 bg-lightBeige dark:bg-forestDark rounded-lg">
+                <div className="flex items-center p-3 bg-forestLight/50 rounded-lg">
                   <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                     <CheckCircle className="h-5 w-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="font-medium">In-Network Benefits Apply</p>
-                    <p className="text-sm text-muted-foreground">Patient will receive maximum coverage with this provider</p>
+                    <p className="font-medium text-forestDark">In-Network Benefits Apply</p>
+                    <p className="text-sm text-forestDark-light">Patient will receive maximum coverage with this provider</p>
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex justify-between border-b border-forestLight pb-2">
+                <div className="space-y-3 text-forestDark">
+                  <div className="flex justify-between border-b border-taupe/10 pb-2">
                     <span className="font-medium">Preventive Services</span>
                     <span className="font-medium text-forestGreen">100% Coverage</span>
                   </div>
-                  <div className="flex justify-between border-b border-forestLight pb-2">
+                  <div className="flex justify-between border-b border-taupe/10 pb-2">
                     <span className="font-medium">Basic Services</span>
                     <span className="font-medium text-forestGreen">80% Coverage</span>
                   </div>
-                  <div className="flex justify-between border-b border-forestLight pb-2">
+                  <div className="flex justify-between border-b border-taupe/10 pb-2">
                     <span className="font-medium">Major Services</span>
                     <span className="font-medium text-forestGreen">50% Coverage</span>
                   </div>
-                  <div className="flex justify-between border-b border-forestLight pb-2">
+                  <div className="flex justify-between border-b border-taupe/10 pb-2">
                     <span className="font-medium">Deductible</span>
                     <span className="font-medium text-forestGreen">$50 Individual / $150 Family</span>
                   </div>
@@ -270,7 +270,7 @@ export default function NetworkStatusVisualizer() {
       </div>
 
       {selectedProvider === 'outNetwork' && (
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
             <CardTitle>Out-of-Network Example</CardTitle>
             <CardDescription>
@@ -297,13 +297,13 @@ export default function NetworkStatusVisualizer() {
             <div className="flex items-center justify-center mb-8">
               <div className="w-64 h-64 relative">
                 {/* Outer circle - All Providers */}
-                <div className="absolute inset-0 rounded-full border-2 border-dashed border-forestLight"></div>
+                <div className="absolute inset-0 rounded-full border-2 border-dashed border-taupe/20"></div>
                 
                 {/* Middle circle - Delta Dental Network */}
-                <div className="absolute inset-4 rounded-full border-2 border-forestGreen bg-lightBeige bg-opacity-50"></div>
+                <div className="absolute inset-4 rounded-full border-2 border-forestGreen bg-forestLight/50"></div>
                 
                 {/* Inner circle - PPO Network */}
-                <div className="absolute inset-12 rounded-full border-2 border-forestGreen bg-forestGreen bg-opacity-20"></div>
+                <div className="absolute inset-12 rounded-full border-2 border-forestGreen bg-forestGreen/20"></div>
                 
                 {/* Out of Network Provider (positioned outside the network circles) */}
                 <div className="absolute -right-4 top-1/2 transform translate-y-[-50%] w-16 h-16 rounded-full bg-red-500 flex items-center justify-center text-white font-bold text-xs">
@@ -311,7 +311,7 @@ export default function NetworkStatusVisualizer() {
                 </div>
                 
                 {/* Labels */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-6 text-xs font-medium text-muted-foreground">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-6 text-xs font-medium text-forestDark-light">
                   All Providers
                 </div>
                 <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-6 text-xs font-medium text-forestGreen">
@@ -339,15 +339,15 @@ export default function NetworkStatusVisualizer() {
             </div>
 
             <div className="space-y-4">
-              <div className="border rounded-lg p-4 bg-lightBeige">
+              <div className="border rounded-lg p-4 bg-forestLight/30 border-taupe/20">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                       <CheckCircle className="h-5 w-5 text-green-600" />
                     </div>
                     <div>
-                      <h3 className="font-medium">Dr. Sarah Johnson</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <h3 className="font-medium text-forestDark">Dr. Sarah Johnson</h3>
+                      <p className="text-sm text-forestDark-light">
                         0.8 miles away | Delta Dental PPO
                       </p>
                     </div>
@@ -356,15 +356,15 @@ export default function NetworkStatusVisualizer() {
                 </div>
               </div>
 
-              <div className="border rounded-lg p-4">
+              <div className="border rounded-lg p-4 bg-forestLight/30 border-taupe/20">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                       <CheckCircle className="h-5 w-5 text-green-600" />
                     </div>
                     <div>
-                      <h3 className="font-medium">Dr. Michael Chen</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <h3 className="font-medium text-forestDark">Dr. Michael Chen</h3>
+                      <p className="text-sm text-forestDark-light">
                         1.2 miles away | Delta Dental PPO
                       </p>
                     </div>
@@ -373,15 +373,15 @@ export default function NetworkStatusVisualizer() {
                 </div>
               </div>
 
-              <div className="border rounded-lg p-4">
+              <div className="border rounded-lg p-4 bg-forestLight/30 border-taupe/20">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
                       <CheckCircle className="h-5 w-5 text-green-600" />
                     </div>
                     <div>
-                      <h3 className="font-medium">Dr. Emily Rodriguez</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <h3 className="font-medium text-forestDark">Dr. Emily Rodriguez</h3>
+                      <p className="text-sm text-forestDark-light">
                         2.5 miles away | Delta Dental PPO
                       </p>
                     </div>
@@ -395,7 +395,7 @@ export default function NetworkStatusVisualizer() {
       )}
 
       {/* Time Saved Indicator */}
-      <Card>
+      <Card className="bg-white">
         <CardContent className="pt-6">
           <div className="flex items-center">
             <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
@@ -404,8 +404,8 @@ export default function NetworkStatusVisualizer() {
               </svg>
             </div>
             <div>
-              <h4 className="font-medium">Time Saved: 15 minutes</h4>
-              <p className="text-sm text-muted-foreground">Network status visualization completed in 2 seconds vs. traditional 15-minute process</p>
+              <h4 className="font-medium text-forestDark">Time Saved: 15 minutes</h4>
+              <p className="text-sm text-forestDark-light">Network status visualization completed in 2 seconds vs. traditional 15-minute process</p>
             </div>
           </div>
         </CardContent>

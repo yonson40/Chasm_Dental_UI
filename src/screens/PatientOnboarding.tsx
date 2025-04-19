@@ -55,13 +55,13 @@ export default function PatientOnboarding() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-blueBlack dark:text-beige">New Patient Onboarding</h1>
+        <h1 className="text-3xl font-bold text-forestDark">New Patient Onboarding</h1>
       </div>
 
       {/* Progress Steps */}
       <div className="flex mb-8 relative">
         {/* Progress bar background */}
-        <div className="absolute top-1/2 left-0 right-0 h-1 bg-muted transform -translate-y-1/2 z-0"></div>
+        <div className="absolute top-1/2 left-0 right-0 h-1 bg-taupe/20 transform -translate-y-1/2 z-0"></div>
         
         {/* Steps */}
         {[
@@ -76,8 +76,8 @@ export default function PatientOnboarding() {
                 ${currentStep > index + 1 
                   ? 'bg-forestGreen text-white' 
                   : currentStep === index + 1 
-                    ? 'bg-mossGreen text-white' 
-                    : 'bg-lightBeige text-forestDark border border-forestLight'}`}
+                    ? 'bg-forestGreen/80 text-white' 
+                    : 'bg-white text-forestDark border border-taupe/30'}`}
             >
               {currentStep > index + 1 ? (
                 <CheckCircle className="h-5 w-5" />
@@ -85,7 +85,7 @@ export default function PatientOnboarding() {
                 index + 1
               )}
             </div>
-            <span className={`text-xs text-center px-2 ${currentStep === index + 1 ? 'font-medium text-forestDark' : 'text-muted-foreground'}`}>
+            <span className={`text-xs text-center px-2 ${currentStep === index + 1 ? 'font-medium text-forestDark' : 'text-forestDark-light'}`}>
               {step}
             </span>
           </div>
@@ -94,7 +94,7 @@ export default function PatientOnboarding() {
 
       {/* Step 1: Patient Information */}
       {currentStep === 1 && (
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
             <CardTitle>Basic Patient Information</CardTitle>
             <CardDescription>
@@ -197,7 +197,7 @@ export default function PatientOnboarding() {
 
       {/* Step 2: Insurance Discovery */}
       {currentStep === 2 && (
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
             <CardTitle>Insurance Discovery</CardTitle>
             <CardDescription>
@@ -216,17 +216,17 @@ export default function PatientOnboarding() {
 
             {/* Insurance Options */}
             <div className="space-y-4 mb-8">
-              <div className="border rounded-lg p-4 bg-lightBeige border-forestGreen">
+              <div className="border rounded-lg p-4 bg-forestLight/50 border-forestGreen">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center mr-4 border border-taupe/10">
                       <svg className="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2L4 8v12h5V10h6v10h5V8L12 2z"/>
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-medium">Delta Dental PPO</h3>
-                      <p className="text-sm text-muted-foreground">Member ID: DDN123456789</p>
+                      <h3 className="font-medium text-forestDark">Delta Dental PPO</h3>
+                      <p className="text-sm text-forestDark-light">Member ID: DDN123456789</p>
                     </div>
                   </div>
                   <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
@@ -235,18 +235,18 @@ export default function PatientOnboarding() {
                 </div>
               </div>
 
-              <div className="border rounded-lg p-4">
+              <div className="border rounded-lg p-4 border-taupe/20">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center mr-4 border border-taupe/10">
                       <svg className="w-8 h-8 text-blue-900" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                         <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/>
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-medium">Cigna Dental</h3>
-                      <p className="text-sm text-muted-foreground">Member ID: CGN987654321</p>
+                      <h3 className="font-medium text-forestDark">Cigna Dental</h3>
+                      <p className="text-sm text-forestDark-light">Member ID: CGN987654321</p>
                     </div>
                   </div>
                   <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
@@ -255,17 +255,17 @@ export default function PatientOnboarding() {
                 </div>
               </div>
 
-              <div className="border rounded-lg p-4">
+              <div className="border rounded-lg p-4 border-taupe/20">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center mr-4 border border-taupe/10">
                       <svg className="w-8 h-8 text-red-900" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 5c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 10.2c-1.25 1.9-3.41 3-8 3-4.59 0-6.75-1.1-8-3-.33-.5-.33-1.2 0-1.7 1.25-1.9 3.41-3 8-3 4.59 0 6.75 1.1 8 3 .33.5.33 1.2 0 1.7z"/>
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-medium">Aetna Dental</h3>
-                      <p className="text-sm text-muted-foreground">Member ID: AET567891234</p>
+                      <h3 className="font-medium text-forestDark">Aetna Dental</h3>
+                      <p className="text-sm text-forestDark-light">Member ID: AET567891234</p>
                     </div>
                   </div>
                   <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">
@@ -276,27 +276,27 @@ export default function PatientOnboarding() {
             </div>
 
             {/* Selected Insurance Details */}
-            <div className="bg-lightBeige p-6 rounded-lg mb-8">
-              <h3 className="font-medium text-lg mb-4">Selected Insurance Details</h3>
+            <div className="bg-forestLight/30 p-6 rounded-lg mb-8 border border-taupe/10">
+              <h3 className="font-medium text-lg mb-4 text-forestDark">Selected Insurance Details</h3>
               
-              <div className="space-y-3">
-                <div className="flex border-b border-forestLight pb-2">
+              <div className="space-y-3 text-forestDark">
+                <div className="flex border-b border-taupe/20 pb-2">
                   <span className="w-1/3 font-medium">Insurance Provider</span>
                   <span className="w-2/3">Delta Dental</span>
                 </div>
-                <div className="flex border-b border-forestLight pb-2">
+                <div className="flex border-b border-taupe/20 pb-2">
                   <span className="w-1/3 font-medium">Plan Type</span>
                   <span className="w-2/3">PPO</span>
                 </div>
-                <div className="flex border-b border-forestLight pb-2">
+                <div className="flex border-b border-taupe/20 pb-2">
                   <span className="w-1/3 font-medium">Member ID</span>
                   <span className="w-2/3">DDN123456789</span>
                 </div>
-                <div className="flex border-b border-forestLight pb-2">
+                <div className="flex border-b border-taupe/20 pb-2">
                   <span className="w-1/3 font-medium">Group Number</span>
                   <span className="w-2/3">GRP12345</span>
                 </div>
-                <div className="flex border-b border-forestLight pb-2">
+                <div className="flex border-b border-taupe/20 pb-2">
                   <span className="w-1/3 font-medium">Coverage Start Date</span>
                   <span className="w-2/3">01/01/2025</span>
                 </div>
@@ -323,7 +323,7 @@ export default function PatientOnboarding() {
 
       {/* Step 3: Verification */}
       {currentStep === 3 && (
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
             <CardTitle>Insurance Verification</CardTitle>
             <CardDescription>
@@ -341,7 +341,7 @@ export default function PatientOnboarding() {
             </div>
 
             {/* Insurance Card */}
-            <div className="bg-blue-50 rounded-lg p-6 mb-8">
+            <div className="bg-blue-50 rounded-lg p-6 mb-8 border border-blue-200">
               <div className="flex">
                 <div className="w-16 h-16 bg-white rounded-md flex items-center justify-center mr-6">
                   <svg className="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
@@ -350,7 +350,7 @@ export default function PatientOnboarding() {
                 </div>
                 <div>
                   <h3 className="text-xl font-medium text-blue-900">Delta Dental PPO</h3>
-                  <div className="mt-2 space-y-1">
+                  <div className="mt-2 space-y-1 text-blue-800">
                     <p className="text-sm"><strong>Member:</strong> {patientData.firstName || 'John'} {patientData.lastName || 'Smith'}</p>
                     <p className="text-sm"><strong>Member ID:</strong> DDN123456789</p>
                     <p className="text-sm"><strong>Group:</strong> GRP12345</p>
@@ -362,18 +362,18 @@ export default function PatientOnboarding() {
 
             {/* Benefits Summary */}
             <div className="mb-8">
-              <h3 className="font-medium text-lg mb-4">Benefits Summary</h3>
+              <h3 className="font-medium text-lg mb-4 text-forestDark">Benefits Summary</h3>
               
-              <div className="space-y-3">
-                <div className="flex justify-between border-b border-forestLight pb-2">
+              <div className="space-y-3 text-forestDark">
+                <div className="flex justify-between border-b border-taupe/10 pb-2">
                   <span className="font-medium">Annual Maximum</span>
                   <span className="font-medium text-forestGreen">$2,000</span>
                 </div>
-                <div className="flex justify-between border-b border-forestLight pb-2">
+                <div className="flex justify-between border-b border-taupe/10 pb-2">
                   <span className="font-medium">Remaining Benefit</span>
                   <span className="font-medium text-forestGreen">$1,850</span>
                 </div>
-                <div className="flex justify-between border-b border-forestLight pb-2">
+                <div className="flex justify-between border-b border-taupe/10 pb-2">
                   <span className="font-medium">Deductible</span>
                   <span className="font-medium text-forestGreen">$50 (Met)</span>
                 </div>

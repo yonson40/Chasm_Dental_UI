@@ -1,7 +1,17 @@
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require('electron-squirrel-startup')) {
+  app.quit();
+}
+
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
 import { update } from './update'
+import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+
+// Declare the global constants injected by Forge Vite Plugin
+declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
+declare const MAIN_WINDOW_VITE_NAME: string; 
 
 // The built directory structure
 //
@@ -36,9 +46,10 @@ if (!app.requestSingleInstanceLock()) {
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
-const preload = join(__dirname, 'preload.js') // Correct path relative to main.js in .vite/build/
-const url = process.env.VITE_DEV_SERVER_URL
-const indexHtml = join(process.env.DIST || '', 'index.html') // Add fallback for DIST
+// Correct preload path: relative to main.js in .vite/build/, using expected filename
+const preload = join(__dirname, 'main_window_preload.js') 
+// const url = process.env.VITE_DEV_SERVER_URL // Old way
+const indexHtml = join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -57,12 +68,13 @@ async function createWindow() {
     },
   })
 
-  if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
-    win.loadURL(url!) // Add non-null assertion for url
-    // Open devTool if the app is not packaged
+  // Check for the Forge Vite Plugin global constant
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) { 
+    win.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL) // Use the Forge global constant
     win.webContents.openDevTools()
   } else {
-    win.loadFile(indexHtml) // indexHtml is now guaranteed to be string
+    // Adjust indexHtml path based on MAIN_WINDOW_VITE_NAME
+    win.loadFile(join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
   // Test actively push message to the Electron-Renderer
@@ -115,7 +127,7 @@ ipcMain.handle('open-win', (_, arg) => {
   })
 
   if (process.env.VITE_DEV_SERVER_URL) {
-    childWindow.loadURL(`${url}#${arg}`)
+    childWindow.loadURL(`${process.env.VITE_DEV_SERVER_URL}#${arg}`)
   } else {
     childWindow.loadFile(indexHtml, { hash: arg })
   }

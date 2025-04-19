@@ -180,15 +180,15 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
   const getDocumentIcon = (type: string) => {
     switch (type) {
       case 'X-ray':
-        return <Image className="h-5 w-5 text-blue-600 dark:text-blue-400" />;
+        return <Image className="h-5 w-5 text-blue-600" />;
       case 'Clinical Notes':
-        return <FileText className="h-5 w-5 text-green-600 dark:text-green-400" />;
+        return <FileText className="h-5 w-5 text-green-600" />;
       case 'Periodontal Chart':
-        return <FileCheck className="h-5 w-5 text-purple-600 dark:text-purple-400" />;
+        return <FileCheck className="h-5 w-5 text-purple-600" />;
       case 'Treatment Plan':
-        return <FileCheck className="h-5 w-5 text-amber-600 dark:text-amber-400" />;
+        return <FileCheck className="h-5 w-5 text-amber-600" />;
       default:
-        return <File className="h-5 w-5 text-forestDark-light dark:text-beige/70" />;
+        return <File className="h-5 w-5 text-forestDark-light" />;
     }
   };
   
@@ -209,14 +209,14 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
   const documentGroups = groupDocumentsByType();
   
   return (
-    <Card className={`bg-white dark:bg-forestDark shadow-sm overflow-hidden ${className}`}>
-      <div className="p-4 border-b border-forestLight-dark/20 dark:border-forestDark-light/20">
+    <Card className={`bg-white shadow-sm overflow-hidden ${className}`}>
+      <div className="p-4 border-b border-taupe/20">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-forestDark dark:text-beige">Document Retrieval</h3>
+          <h3 className="text-lg font-semibold text-forestDark">Document Retrieval</h3>
           {retrievalStatus === 'completed' && (
             <button 
               onClick={resetRetrieval}
-              className="text-xs text-forestGreen hover:text-forestGreen-dark dark:text-forestGreen-light dark:hover:text-forestGreen"
+              className="text-xs text-forestGreen hover:text-forestGreen-dark"
             >
               Search Again
             </button>
@@ -229,14 +229,14 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
         <div className="mb-4">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-forestDark dark:text-beige">{patientName}</h4>
-              <p className="text-xs text-forestDark-light dark:text-beige/70">Patient ID: {patientId}</p>
+              <h4 className="text-sm font-medium text-forestDark">{patientName}</h4>
+              <p className="text-xs text-forestDark-light">Patient ID: {patientId}</p>
             </div>
             
             {retrievalStatus === 'completed' && retrievalResults && (
-              <div className="flex items-center px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded-full">
-                <CheckCircle className="h-3 w-3 text-green-600 dark:text-green-400 mr-1" />
-                <span className="text-xs text-green-600 dark:text-green-400">
+              <div className="flex items-center px-2 py-1 bg-green-100 rounded-full">
+                <CheckCircle className="h-3 w-3 text-green-600 mr-1" />
+                <span className="text-xs text-green-600">
                   {retrievalResults.documentsRetrieved} documents retrieved
                 </span>
               </div>
@@ -247,7 +247,7 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
         {/* Retrieval Status */}
         {retrievalStatus === 'idle' && (
           <div className="text-center py-6">
-            <p className="text-sm text-forestDark-light dark:text-beige/70 mb-4">
+            <p className="text-sm text-forestDark-light mb-4">
               Click below to automatically retrieve documents from connected systems
             </p>
             <button
@@ -256,7 +256,7 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
             >
               Retrieve Documents
             </button>
-            <p className="text-xs text-forestDark-light dark:text-beige/70 mt-4">
+            <p className="text-xs text-forestDark-light mt-4">
               <Clock className="h-3 w-3 inline mr-1" />
               Saves approximately 20 minutes compared to manual retrieval
             </p>
@@ -266,9 +266,9 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
         {retrievalStatus === 'searching' && (
           <div className="text-center py-6">
             <div className="animate-pulse flex flex-col items-center">
-              <Search className="h-8 w-8 text-forestGreen dark:text-forestGreen-light mb-3" />
-              <p className="text-sm text-forestDark dark:text-beige">Searching for documents...</p>
-              <p className="text-xs text-forestDark-light dark:text-beige/70 mt-2">
+              <Search className="h-8 w-8 text-forestGreen mb-3" />
+              <p className="text-sm text-forestDark">Searching for documents...</p>
+              <p className="text-xs text-forestDark-light mt-2">
                 Checking OpenDental and connected imaging systems
               </p>
             </div>
@@ -278,9 +278,9 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
         {retrievalStatus === 'retrieving' && (
           <div className="text-center py-6">
             <div className="animate-pulse flex flex-col items-center">
-              <Download className="h-8 w-8 text-forestGreen dark:text-forestGreen-light mb-3" />
-              <p className="text-sm text-forestDark dark:text-beige">Retrieving documents...</p>
-              <p className="text-xs text-forestDark-light dark:text-beige/70 mt-2">
+              <Download className="h-8 w-8 text-forestGreen mb-3" />
+              <p className="text-sm text-forestDark">Retrieving documents...</p>
+              <p className="text-xs text-forestDark-light mt-2">
                 Downloading and preparing documents for submission
               </p>
             </div>
@@ -290,23 +290,23 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
         {retrievalStatus === 'completed' && retrievalResults && (
           <div>
             {/* Retrieval Summary */}
-            <div className="mb-4 p-4 bg-forestLight/50 dark:bg-forestDark-light/30 rounded-md">
+            <div className="mb-4 p-4 bg-forestLight/50 rounded-md">
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Documents Found</p>
-                  <p className="text-lg font-medium text-forestDark dark:text-beige">
+                  <p className="text-xs text-forestDark-light">Documents Found</p>
+                  <p className="text-lg font-medium text-forestDark">
                     {retrievalResults.documentsFound}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Documents Retrieved</p>
-                  <p className="text-lg font-medium text-green-600 dark:text-green-400">
+                  <p className="text-xs text-forestDark-light">Documents Retrieved</p>
+                  <p className="text-lg font-medium text-green-600">
                     {retrievalResults.documentsRetrieved}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-forestDark-light dark:text-beige/70">Time Saved</p>
-                  <p className="text-lg font-medium text-forestDark dark:text-beige">
+                  <p className="text-xs text-forestDark-light">Time Saved</p>
+                  <p className="text-lg font-medium text-forestDark">
                     {retrievalResults.timeSaved} min
                   </p>
                 </div>
@@ -318,7 +318,7 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
               <div key={type} className="mb-3">
                 <button
                   onClick={() => toggleSection(type)}
-                  className="w-full flex items-center justify-between p-2 bg-forestLight/50 dark:bg-forestDark-light/30 rounded-md text-sm font-medium text-forestDark dark:text-beige hover:bg-forestLight dark:hover:bg-forestDark-light"
+                  className="w-full flex items-center justify-between p-2 bg-forestLight/50 rounded-md text-sm font-medium text-forestDark hover:bg-forestLight"
                 >
                   <div className="flex items-center">
                     {getDocumentIcon(type)}
@@ -341,32 +341,33 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
                         key={document.id}
                         className={`p-3 rounded-md border ${
                           document.status === 'retrieved' 
-                            ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900/50' 
-                            : 'bg-forestLight/30 dark:bg-forestDark-light/20 border-forestLight-dark/20 dark:border-forestDark-light/20'
+                            ? 'bg-green-50 border-green-200' 
+                            : 'bg-forestLight/30 border-taupe/20'
                         }`}
                       >
                         <div className="flex items-start">
                           <div className="flex-shrink-0 mt-1">
                             <input
                               type="checkbox"
+                              aria-label={`Select document ${document.name}`}
                               checked={document.selected}
                               onChange={() => toggleDocumentSelection(document.id)}
-                              className="h-4 w-4 text-forestGreen focus:ring-forestGreen border-forestLight-dark dark:border-forestDark-light rounded"
+                              className="h-4 w-4 text-forestGreen focus:ring-forestGreen border-taupe/40 rounded"
                             />
                           </div>
                           
                           <div className="ml-3 flex-grow">
                             <div className="flex items-start justify-between">
                               <div>
-                                <p className="text-sm font-medium text-forestDark dark:text-beige">
+                                <p className="text-sm font-medium text-forestDark">
                                   {document.name}
                                 </p>
                                 <div className="flex items-center mt-1">
-                                  <p className="text-xs text-forestDark-light dark:text-beige/70">
+                                  <p className="text-xs text-forestDark-light">
                                     {document.date.toLocaleDateString()}
                                   </p>
-                                  <span className="mx-1 text-forestDark-light dark:text-beige/70">•</span>
-                                  <p className="text-xs text-forestDark-light dark:text-beige/70">
+                                  <span className="mx-1 text-forestDark-light">•</span>
+                                  <p className="text-xs text-forestDark-light">
                                     {document.source}
                                   </p>
                                 </div>
@@ -374,8 +375,8 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
                               
                               <span className={`text-xs px-2 py-0.5 rounded-full ${
                                 document.status === 'retrieved' 
-                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' 
-                                  : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                                  ? 'bg-green-100 text-green-800' 
+                                  : 'bg-blue-100 text-blue-800'
                               }`}>
                                 {document.status === 'retrieved' ? 'Retrieved' : 'Found'}
                               </span>
@@ -417,13 +418,13 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
               >
                 Use Selected Documents
               </button>
-              <button className="flex-1 px-4 py-2 bg-gray-200 text-forestDark rounded-md hover:bg-gray-300 dark:bg-forestDark-light dark:text-beige dark:hover:bg-forestDark-lighter">
+              <button className="flex-1 px-4 py-2 bg-gray-200 text-forestDark rounded-md hover:bg-gray-300">
                 Upload Additional
               </button>
             </div>
             
             <div className="mt-4 text-center">
-              <p className="text-xs text-forestDark-light dark:text-beige/70">
+              <p className="text-xs text-forestDark-light">
                 <Clock className="h-3 w-3 inline mr-1" />
                 Saved {retrievalResults.timeSaved} minutes compared to manual retrieval
               </p>
@@ -434,11 +435,11 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
         {retrievalStatus === 'failed' && (
           <div className="text-center py-6">
             <div className="flex flex-col items-center">
-              <div className="p-3 rounded-full bg-red-100 dark:bg-red-900/30 mb-3">
-                <X className="h-6 w-6 text-red-600 dark:text-red-400" />
+              <div className="p-3 rounded-full bg-red-100 mb-3">
+                <X className="h-6 w-6 text-red-600" />
               </div>
-              <p className="text-sm text-forestDark dark:text-beige">Retrieval failed</p>
-              <p className="text-xs text-forestDark-light dark:text-beige/70 mt-2 mb-4">
+              <p className="text-sm text-forestDark">Retrieval failed</p>
+              <p className="text-xs text-forestDark-light mt-2 mb-4">
                 Unable to automatically retrieve documents. Please try again or retrieve manually.
               </p>
               <div className="flex space-x-3">
@@ -448,7 +449,7 @@ export const EnhancedDocumentRetrieval: React.FC<EnhancedDocumentRetrievalProps>
                 >
                   Try Again
                 </button>
-                <button className="px-3 py-1.5 bg-gray-200 text-forestDark text-sm rounded-md hover:bg-gray-300 dark:bg-forestDark-light dark:text-beige dark:hover:bg-forestDark-lighter">
+                <button className="px-3 py-1.5 bg-gray-200 text-forestDark text-sm rounded-md hover:bg-gray-300">
                   Manual Upload
                 </button>
               </div>

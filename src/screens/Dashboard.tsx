@@ -1,17 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { IntelligentDashboard } from '@/components/intelligent-dashboard';
 import { useA2A } from '@/components/a2a-provider';
 import { Card } from '@/components/ui/card';
 import { Clock, CheckCircle, AlertCircle, Activity, BarChart2, DollarSign } from 'lucide-react';
 
 export default function Dashboard() {
-  const { tasks, pendingApprovals, timeSavedToday } = useA2A();
-  
   // Calculate statistics for the traditional dashboard metrics
-  const totalClaims = 248;
   const pendingClaims = 36;
   const cleanClaimRate = 95.2;
   const averageReimbursement = 842;
+  const avgDaysInAR = 28; // Mock data for Avg Days in A/R
   
   // Format currency
   const formatCurrency = (amount: number) => {
@@ -25,229 +24,243 @@ export default function Dashboard() {
   
   return (
     <div className="container mx-auto px-4 py-6">
-      <h2 className="text-2xl font-bold text-forestDark dark:text-beige mb-6">Dashboard</h2>
+      <h2 className="text-2xl font-bold text-forestDark mb-6">Dashboard</h2>
       
-      {/* Traditional Dashboard Metrics */}
+      {/* Traditional Dashboard Metrics - Remove Total Claims, adjust grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <Card className="p-4 bg-white dark:bg-forestDark shadow-sm">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-sm text-forestDark-light dark:text-beige/70">Total Claims</p>
-              <h3 className="text-2xl font-bold text-forestDark dark:text-beige mt-1">
-                {totalClaims}
-              </h3>
-            </div>
-            <div className="p-2 bg-blue-100 rounded-full dark:bg-blue-900/30">
-              <Activity className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-            </div>
-          </div>
-          <div className="mt-2 text-xs text-green-600 dark:text-green-400">
-            +12% from last month
-          </div>
-        </Card>
+        {/* Card 1 (Total Claims) - REMOVED */}
+        {/* <Card className="p-4 bg-white shadow-sm"> ... </Card> */}
 
-        <Card className="p-4 bg-white dark:bg-forestDark shadow-sm">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-sm text-forestDark-light dark:text-beige/70">Pending Claims</p>
-              <h3 className="text-2xl font-bold text-forestDark dark:text-beige mt-1">
-                {pendingClaims}
-              </h3>
+        {/* Card 2 - Pending Claims - Made interactive */}
+        <Link to="/claim-submission" className="block">
+          <Card className="p-4 bg-white shadow-sm cursor-pointer hover:shadow-md transition-shadow h-full">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-forestDark-light">Pending Claims</p>
+                <h3 className="text-2xl font-bold text-forestDark mt-1">
+                  {pendingClaims}
+                </h3>
+              </div>
+              <div className="p-2 bg-amber-100 rounded-full">
+                <AlertCircle className="h-5 w-5 text-amber-600" />
+              </div>
             </div>
-            <div className="p-2 bg-amber-100 rounded-full dark:bg-amber-900/30">
-              <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            <div className="mt-2 text-xs text-green-600">
+              -8% from last month
             </div>
-          </div>
-          <div className="mt-2 text-xs text-green-600 dark:text-green-400">
-            -8% from last month
-          </div>
-        </Card>
+          </Card>
+        </Link>
 
-        <Card className="p-4 bg-white dark:bg-forestDark shadow-sm">
+        {/* Card 3 - Clean Claim Rate */}
+        <Card className="p-4 bg-white shadow-sm h-full">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm text-forestDark-light dark:text-beige/70">Clean Claim Rate</p>
-              <h3 className="text-2xl font-bold text-forestDark dark:text-beige mt-1">
+              <p className="text-sm text-forestDark-light">Clean Claim Rate</p>
+              <h3 className="text-2xl font-bold text-forestDark mt-1">
                 {cleanClaimRate}%
               </h3>
             </div>
-            <div className="p-2 bg-green-100 rounded-full dark:bg-green-900/30">
-              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+            <div className="p-2 bg-green-100 rounded-full">
+              <CheckCircle className="h-5 w-5 text-green-600" />
             </div>
           </div>
-          <div className="mt-2 text-xs text-green-600 dark:text-green-400">
+          <div className="mt-2 text-xs text-green-600">
             +2.3% from last month
           </div>
         </Card>
 
-        <Card className="p-4 bg-white dark:bg-forestDark shadow-sm">
+        {/* Card 4 - Avg. Reimbursement - Made interactive */}
+        <Link 
+          to="/financial-analytics" 
+          className="block text-left w-full"
+        >
+          <Card className="p-4 bg-white shadow-sm cursor-pointer hover:shadow-md transition-shadow h-full">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-forestDark-light">Avg. Reimbursement</p>
+                <h3 className="text-2xl font-bold text-forestDark mt-1">
+                  {formatCurrency(averageReimbursement)}
+                </h3>
+              </div>
+              <div className="p-2 bg-purple-100 rounded-full">
+                <DollarSign className="h-5 w-5 text-purple-600" />
+              </div>
+            </div>
+            <div className="mt-2 text-xs text-green-600">
+              +5% from last month
+            </div>
+          </Card>
+        </Link>
+
+        {/* Card 5 - Avg Days in A/R (New) */}
+        <Card className="p-4 bg-white shadow-sm h-full">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm text-forestDark-light dark:text-beige/70">Avg. Reimbursement</p>
-              <h3 className="text-2xl font-bold text-forestDark dark:text-beige mt-1">
-                {formatCurrency(averageReimbursement)}
+              <p className="text-sm text-forestDark-light">Avg. Days in A/R</p>
+              <h3 className="text-2xl font-bold text-forestDark mt-1">
+                {avgDaysInAR}
               </h3>
             </div>
-            <div className="p-2 bg-purple-100 rounded-full dark:bg-purple-900/30">
-              <DollarSign className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+            <div className="p-2 bg-teal-100 rounded-full">
+              <Clock className="h-5 w-5 text-teal-600" />
             </div>
           </div>
-          <div className="mt-2 text-xs text-green-600 dark:text-green-400">
-            +5% from last month
+          <div className="mt-2 text-xs text-red-600">
+            +2 days from last month
           </div>
         </Card>
       </div>
       
-      {/* Intelligent Dashboard */}
+      {/* Intelligent Dashboard Component */}
       <IntelligentDashboard className="mb-6" />
       
       {/* Recent Claims Table */}
-      <Card className="bg-white dark:bg-forestDark shadow-sm overflow-hidden mb-6">
-        <div className="p-4 border-b border-forestLight-dark/20 dark:border-forestDark-light/20">
-          <h3 className="text-lg font-semibold text-forestDark dark:text-beige">Recent Claims</h3>
+      <Card className="bg-white shadow-sm overflow-hidden mb-6">
+        <div className="p-4 border-b border-taupe/20">
+          <h3 className="text-lg font-semibold text-forestDark">Recent Claims</h3>
         </div>
         
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-forestLight/50 dark:bg-forestDark-light/30">
+            <thead className="bg-forestLight/50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light dark:text-beige/70 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light uppercase tracking-wider">
                   Patient
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light dark:text-beige/70 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light uppercase tracking-wider">
                   Procedure
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light dark:text-beige/70 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light dark:text-beige/70 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light dark:text-beige/70 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-forestDark-light uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-4 py-3 text-right text-xs font-medium text-forestDark-light dark:text-beige/70 uppercase tracking-wider">
+                <th className="px-4 py-3 text-right text-xs font-medium text-forestDark-light uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-forestLight-dark/10 dark:divide-forestDark-light/10">
+            <tbody className="divide-y divide-taupe/10">
               <tr>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm font-medium text-forestDark dark:text-beige">Sarah Johnson</div>
+                  <div className="text-sm font-medium text-forestDark">Sarah Johnson</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">D2750 - Crown</div>
+                  <div className="text-sm text-forestDark">D2750 - Crown</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark-light dark:text-beige/70">Apr 15, 2025</div>
+                  <div className="text-sm text-forestDark-light">Apr 15, 2025</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">{formatCurrency(1250)}</div>
+                  <div className="text-sm text-forestDark">{formatCurrency(1250)}</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                     Approved
                   </span>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="text-forestGreen hover:text-forestGreen-dark dark:text-forestGreen-light dark:hover:text-forestGreen">
+                  <button className="text-forestGreen hover:text-forestGreen-dark">
                     View
                   </button>
                 </td>
               </tr>
               <tr>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm font-medium text-forestDark dark:text-beige">John Smith</div>
+                  <div className="text-sm font-medium text-forestDark">John Smith</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">D2950 - Core Buildup</div>
+                  <div className="text-sm text-forestDark">D2950 - Core Buildup</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark-light dark:text-beige/70">Apr 14, 2025</div>
+                  <div className="text-sm text-forestDark-light">Apr 14, 2025</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">{formatCurrency(350)}</div>
+                  <div className="text-sm text-forestDark">{formatCurrency(350)}</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800">
                     Pending
                   </span>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="text-forestGreen hover:text-forestGreen-dark dark:text-forestGreen-light dark:hover:text-forestGreen">
+                  <button className="text-forestGreen hover:text-forestGreen-dark">
                     View
                   </button>
                 </td>
               </tr>
               <tr>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm font-medium text-forestDark dark:text-beige">Emily Davis</div>
+                  <div className="text-sm font-medium text-forestDark">Emily Davis</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">D1110 - Cleaning</div>
+                  <div className="text-sm text-forestDark">D1110 - Cleaning</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark-light dark:text-beige/70">Apr 13, 2025</div>
+                  <div className="text-sm text-forestDark-light">Apr 13, 2025</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">{formatCurrency(120)}</div>
+                  <div className="text-sm text-forestDark">{formatCurrency(120)}</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                     Approved
                   </span>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="text-forestGreen hover:text-forestGreen-dark dark:text-forestGreen-light dark:hover:text-forestGreen">
+                  <button className="text-forestGreen hover:text-forestGreen-dark">
                     View
                   </button>
                 </td>
               </tr>
               <tr>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm font-medium text-forestDark dark:text-beige">Michael Brown</div>
+                  <div className="text-sm font-medium text-forestDark">Michael Brown</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">D4341 - Scaling & Root Planing</div>
+                  <div className="text-sm text-forestDark">D4341 - Scaling & Root Planing</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark-light dark:text-beige/70">Apr 12, 2025</div>
+                  <div className="text-sm text-forestDark-light">Apr 12, 2025</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">{formatCurrency(780)}</div>
+                  <div className="text-sm text-forestDark">{formatCurrency(780)}</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
+                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                     Denied
                   </span>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="text-forestGreen hover:text-forestGreen-dark dark:text-forestGreen-light dark:hover:text-forestGreen">
+                  <button className="text-forestGreen hover:text-forestGreen-dark">
                     View
                   </button>
                 </td>
               </tr>
               <tr>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm font-medium text-forestDark dark:text-beige">Jessica Wilson</div>
+                  <div className="text-sm font-medium text-forestDark">Jessica Wilson</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">D0220 - X-ray (PA)</div>
+                  <div className="text-sm text-forestDark">D0220 - X-ray (PA)</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark-light dark:text-beige/70">Apr 11, 2025</div>
+                  <div className="text-sm text-forestDark-light">Apr 11, 2025</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-forestDark dark:text-beige">{formatCurrency(45)}</div>
+                  <div className="text-sm text-forestDark">{formatCurrency(45)}</div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+                  <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                     Approved
                   </span>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="text-forestGreen hover:text-forestGreen-dark dark:text-forestGreen-light dark:hover:text-forestGreen">
+                  <button className="text-forestGreen hover:text-forestGreen-dark">
                     View
                   </button>
                 </td>
